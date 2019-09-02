@@ -139,19 +139,20 @@ void ListaEnlazada::agregar(int _valor, int cantFila)
 void ListaEnlazada::imprimir()
 {
     Nodo *actual = iniciolista;
-    ifstream ficheroEntrada;
     string NomArch;
     cout << "Ingrese Nombre De Archivo De Texto" << endl;
     cin >> NomArch;
-    ficheroEntrada.open(NomArch);
-    while (actual != nullptr)
+
+    ofstream myfile;
+    myfile.open(NomArch);
+    myfile << "Writing this to a file.\n";
+    do
     {
         cout << "[" << actual->getValor() << "]" << std::endl;
+        myfile << actual->getValor();
         actual = actual->getSiguiente();
-        std::string str = std::to_string(actual->getValor());
-        getline(ficheroEntrada, str);
-    }
-    ficheroEntrada.close();
+    } while (actual != nullptr);
+    myfile.close();
 }
 
 int ListaEnlazada::cantidadElementos()
