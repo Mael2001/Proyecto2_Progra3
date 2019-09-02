@@ -5,6 +5,7 @@
 
 using namespace std;
 
+int cantFila{0};
 int num{0};
 string nombreArch;
 
@@ -22,15 +23,16 @@ std::ostream &operator<<(ostream &out, string &str)
             cout << ia;
             if (num == 1)
             {
-                lista1.agregar(ia);
+                lista1.agregar(ia,cantFila);
             }
             else
             {
-                lista2.agregar(ia);
+                lista2.agregar(ia,cantFila);
             }
         }
         cout << " ";
     }
+    cantFila++;
     cout << endl;
 }
 
@@ -75,6 +77,7 @@ int main()
             CreadorLista(1);
             CreadorLista(2);
             lista1.imprimir();
+            lista2.imprimir();
             cout << "Matrices creadas exitosamente" << endl;
             break;
         case 2:
