@@ -107,6 +107,7 @@ int main()
             break;
         case 5:
             cout << "\033[2J\033[1;1H";
+            lista1.Probando();
             cout << "***** FIN DEL PROGRAMA *****" << endl;
             break;
         default:

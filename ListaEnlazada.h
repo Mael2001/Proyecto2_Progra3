@@ -16,10 +16,10 @@ private:
     int getDeterminante3(Nodo*);
     int getDeterminante4(Nodo*);
     int getDeterminante5(Nodo*);
-
 public:
     ListaEnlazada();
     Nodo *getInicioLista();
+    void Probando();
     void agregar(int, int);
     void imprimir(void);
     void Suma(ListaEnlazada, ListaEnlazada);

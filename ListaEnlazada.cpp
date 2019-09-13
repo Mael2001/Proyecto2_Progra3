@@ -6,6 +6,14 @@ using namespace std;
 
 ListaEnlazada::ListaEnlazada() : iniciolista(nullptr) {}
 
+void ListaEnlazada::Probando()
+{
+    Nodo *actual = iniciolista->getSiguiente();
+    for (size_t i = 0; i < getFilas(); i++)
+    {
+        cout << "[ " << actual->getValor() << " ]";
+    }
+}
 int ListaEnlazada::getFilas()
 {
     Nodo *filas = iniciolista;
@@ -118,7 +126,6 @@ void ListaEnlazada::Multiplicacion(ListaEnlazada primera, ListaEnlazada segunda)
         {
             while (actual1 != nullptr || actual2 != nullptr)
             {
-                
 
                 int val1 = actual1->getValor();
                 int val2 = actual2->getValor();
@@ -131,7 +138,7 @@ void ListaEnlazada::Multiplicacion(ListaEnlazada primera, ListaEnlazada segunda)
             agregar(Valor, i);
             Valor = 0;
             Lista2Col = Lista2Col->getSiguiente();
-            cout<<Lista2Col->getValor();
+            cout << Lista2Col->getValor();
             actual1 = Lista1Fil;
             actual2 = Lista2Col;
         }
