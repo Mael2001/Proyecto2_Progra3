@@ -17,7 +17,6 @@ int main()
     int opcion;
     do
     {
-        cout << "\033[2J\033[1;1H";
         cout << "***** PROGRAMA DE MATRICES *****" << endl;
         cout << "1.Suma \n2.Resta \n3.Multiplicación \n4.Determinante \n5.Salir" << endl;
         cout << "Eliga una opción: " << endl;
