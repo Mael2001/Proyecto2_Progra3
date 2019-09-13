@@ -5,17 +5,14 @@
 using namespace std;
 
 int cantFila{0};
+string numero{" "};
 int num{0};
-int ia{0};
-int pos{0};
-char *pal;
-string nam{" "};
+string nombreArch;
 
 ListaEnlazada::ListaEnlazada() : iniciolista(nullptr) {}
 
 void ListaEnlazada::CreadorLista()
 {
-    string nombreArch;
     cout << "Ingrese el nombre del archivo donde esta la matriz:\n";
     cin >> nombreArch;
     ifstream read(nombreArch.c_str());
@@ -30,14 +27,22 @@ void ListaEnlazada::CreadorLista()
         string line;
         while (getline(read, line))
         {
-            for (size_t i = 0; i < line.length(); i++)
+            int pos{0};
+            int ia{0};
+            while (pos != line.length())
             {
-                if (line[i] != ' ')
+                while (line[pos] != ' ')
                 {
-                    int ia = line[i] - '0';
-                    cout << ia;
-                    agregar(ia, cantFila);
+                    numero.append(string(1, line[pos]));
+                    if (line[pos + 1] == ' ')
+                    {
+                        ia = atoi(numero.c_str());
+                        cout << ia << " ";
+                        numero = " ";
+                    }
+                    pos++;
                 }
+                pos++;
             }
             cantFila++;
             cout << endl;
@@ -45,8 +50,7 @@ void ListaEnlazada::CreadorLista()
         cantFila = 0;
         if (invalida())
         {
-            cout << "MAL FORMATO" << endl;
-            return;
+            cout << "Esta Lista tiene un formato invalido" << endl;
         }
     }
     read.close();
