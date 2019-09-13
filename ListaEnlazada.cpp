@@ -4,7 +4,53 @@
 
 using namespace std;
 
+int cantFila{0};
+int num{0};
+int ia{0};
+int pos{0};
+char *pal;
+string nam{" "};
+
 ListaEnlazada::ListaEnlazada() : iniciolista(nullptr) {}
+
+void ListaEnlazada::CreadorLista()
+{
+    string nombreArch;
+    cout << "Ingrese el nombre del archivo donde esta la matriz:\n";
+    cin >> nombreArch;
+    ifstream read(nombreArch.c_str());
+    if (!read.is_open())
+    {
+        cout << "No se pudo abrir el Archivo: " << nombreArch << endl;
+        return;
+    }
+    else
+    {
+        cout << "Su Matriz es:" << endl;
+        string line;
+        while (getline(read, line))
+        {
+            for (size_t i = 0; i < line.length(); i++)
+            {
+                if (line[i] != ' ')
+                {
+                    int ia = line[i] - '0';
+                    cout << ia;
+                    agregar(ia, cantFila);
+                }
+            }
+            cantFila++;
+            cout << endl;
+        }
+        cantFila = 0;
+        if (invalida())
+        {
+            cout << "MAL FORMATO" << endl;
+            return;
+        }
+    }
+    read.close();
+}
 
 bool ListaEnlazada::invalida()
 {
@@ -66,10 +112,6 @@ int ListaEnlazada::getColumnas()
 }
 void ListaEnlazada::Suma(ListaEnlazada primera, ListaEnlazada segunda)
 {
-    primera.filas = 0;
-    primera.columnas = 0;
-    segunda.columnas = 0;
-    segunda.filas = 0;
     if (primera.cantidadElementos() != segunda.cantidadElementos())
     {
         cout << "Elementos 1:" << primera.cantidadElementos() << "\nElementos 2:" << segunda.cantidadElementos() << endl;
@@ -99,10 +141,6 @@ void ListaEnlazada::Suma(ListaEnlazada primera, ListaEnlazada segunda)
 
 void ListaEnlazada::Resta(ListaEnlazada primera, ListaEnlazada segunda)
 {
-    primera.filas = 0;
-    primera.columnas = 0;
-    segunda.columnas = 0;
-    segunda.filas = 0;
     if (primera.cantidadElementos() != segunda.cantidadElementos())
     {
         cout << "Elementos 1:" << primera.cantidadElementos() << "\nElementos 2:" << segunda.cantidadElementos() << endl;
@@ -132,10 +170,6 @@ void ListaEnlazada::Resta(ListaEnlazada primera, ListaEnlazada segunda)
 
 void ListaEnlazada::Multiplicacion(ListaEnlazada primera, ListaEnlazada segunda)
 {
-    primera.filas = 0;
-    primera.columnas = 0;
-    segunda.columnas = 0;
-    segunda.filas = 0;
     if (primera.getColumnas() != segunda.getFilas())
     {
         cout << "Elementos 1:" << primera.cantidadElementos() << "\nElementos 2:" << segunda.cantidadElementos() << endl;

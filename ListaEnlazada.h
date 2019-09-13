@@ -24,6 +24,7 @@ private:
 public:
     ListaEnlazada();
     Nodo *getInicioLista();
+    void CreadorLista(void);
     bool invalida();
     void Probando();
     void agregar(int, int);
