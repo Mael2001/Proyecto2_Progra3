@@ -66,23 +66,3 @@ int main()
     } while (opcion != 5);
     return 0;
 }
-void CosasExtra()
-{
-
-    /*char a[80];
-    while (!read.eof())
-    {
-        read >> a;
-        cout << a;
-    }*/
-
-    /* for (int i = 0; i < str.length(); i++)
-    {
-        out << str[i];
-        if (str[i] != ' ' )
-        {
-            int ia = str[i]-'0';
-            cout<<ia;
-        }
-    }*/
-}

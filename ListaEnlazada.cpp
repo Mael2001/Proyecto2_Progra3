@@ -316,10 +316,6 @@ int ListaEnlazada::getDeterminante4(Nodo *recibir)
     a24->setAbajo(a44);
     int valor3 = getDeterminante3(a12) * a31->getValor();
     //Fila 4
-    a12->setAbajo(a22);
-    a13->setAbajo(a23);
-    a14->setAbajo(a24);
-    //------------
     a22->setAbajo(a32);
     a23->setAbajo(a33);
     a24->setAbajo(a34);
@@ -372,6 +368,7 @@ int ListaEnlazada::getDeterminante5(Nodo *recibir)
     a14->setAbajo(a34);
     a15->setAbajo(a35);
     int valor2 = getDeterminante4(a12) * a21->getValor();
+    cout<<valor2;
     //Fila 3
     a12->setAbajo(a22);
     a13->setAbajo(a23);
@@ -382,7 +379,7 @@ int ListaEnlazada::getDeterminante5(Nodo *recibir)
     a23->setAbajo(a43);
     a24->setAbajo(a44);
     a25->setAbajo(a45);
-    int valor3 = getDeterminante4(a12) * a31->getValor();
+    ///int valor3 = getDeterminante4(a12) * a31->getValor();
     //Fila 4
     a22->setAbajo(a32);
     a23->setAbajo(a33);
@@ -393,7 +390,7 @@ int ListaEnlazada::getDeterminante5(Nodo *recibir)
     a33->setAbajo(a53);
     a34->setAbajo(a54);
     a35->setAbajo(a55);
-    int valor4 = getDeterminante4(a12) * a41->getValor();
+    ///int valor4 = getDeterminante4(a12) * a41->getValor();
     //Fila 5
     a32->setAbajo(a42);
     a33->setAbajo(a43);
@@ -404,8 +401,9 @@ int ListaEnlazada::getDeterminante5(Nodo *recibir)
     a43->setAbajo(nullptr);
     a44->setAbajo(nullptr);
     a45->setAbajo(nullptr);
-    int valor5 = getDeterminante4(a12) * a41->getValor();
-    return valor1 - valor2 + valor3 - valor4 + valor5;
+    //int valor5 = getDeterminante4(a12) * a41->getValor();
+    //return valor1 - valor2 + valor3 - valor4 + valor5;
+    return 1;
 }
 int ListaEnlazada::getDeterminante6(Nodo *as) {}
 int ListaEnlazada::getDeterminante7(Nodo *) {}
