@@ -2,37 +2,40 @@
 #include "ListaEnlazada.h"
 #include <iostream>
 #include <fstream>
-
+#include "string.h"
 using namespace std;
 
 int cantFila{0};
 int num{0};
+int ia{0};
+int pos{0};
+char* pal;
+string nam{" "};
 string nombreArch;
 
 ListaEnlazada lista1;
 ListaEnlazada lista2;
 ListaEnlazada lista3;
 
-
 std::ostream &operator<<(ostream &out, string &str)
 {
-    for (int i = 0; i < str.length(); i++)
+    while (pos != str.length())
     {
-        if (str[i] != ' ')
+        if (str[pos] != ' ')
         {
-            int ia = str[i] - '0';
-            cout << ia;
-            if (num == 1)
-            {
-                lista1.agregar(ia, cantFila);
-            }
-            else
-            {
-                lista2.agregar(ia, cantFila);
-            }
+            strcat(pal, &str[pos]);
+            cout << pal;
         }
-        cout << " ";
+        /*if (nam != "")
+        {
+            ia = atoi(nam.c_str());
+            cout << ia << " ";
+            nam = "";
+        }*/
+
+        pos++;
     }
+    pos = 0;
     cantFila++;
     cout << endl;
 }
@@ -76,27 +79,29 @@ int main()
             cout << "\033[2J\033[1;1H";
             cout << "Suma De Matrices" << endl;
             CreadorLista(1);
-            cantFila=0;
+            cantFila = 0;
             CreadorLista(2);
-            lista3.Suma(lista1,lista2);
+            lista1.Probando();
+            lista2.Probando();
+            lista3.Suma(lista1, lista2);
             cout << "Matrices creadas exitosamente" << endl;
             break;
         case 2:
             cout << "\033[2J\033[1;1H";
             cout << "Resta De Matrices" << endl;
             CreadorLista(1);
-            cantFila=0;
+            cantFila = 0;
             CreadorLista(2);
-            lista3.Resta(lista1,lista2);
+            lista3.Resta(lista1, lista2);
             cout << "Matrices creadas exitosamente" << endl;
             break;
         case 3:
             cout << "\033[2J\033[1;1H";
             cout << "Multiplicación De Matrices" << endl;
             CreadorLista(1);
-            cantFila=0;
+            cantFila = 0;
             CreadorLista(2);
-            lista3.Multiplicacion(lista1,lista2);
+            lista3.Multiplicacion(lista1, lista2);
             cout << "Matrices creadas exitosamente" << endl;
             break;
         case 4:
@@ -107,7 +112,6 @@ int main()
             break;
         case 5:
             cout << "\033[2J\033[1;1H";
-            lista1.Probando();
             cout << "***** FIN DEL PROGRAMA *****" << endl;
             break;
         default:

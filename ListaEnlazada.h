@@ -11,14 +11,20 @@ private:
     bool estaVacia(void);
     int filas{0}, columnas{0};
     void imprimirDeterminante(int);
-    void linkear();
     int getDeterminante2();
-    int getDeterminante3(Nodo*);
-    int getDeterminante4(Nodo*);
-    int getDeterminante5(Nodo*);
+    int getDeterminante3(Nodo *);
+    int getDeterminante4(Nodo *);
+    int getDeterminante5(Nodo *);
+    int getDeterminante6(Nodo *);
+    int getDeterminante7(Nodo *);
+    int getDeterminante8(Nodo *);
+    int getDeterminante9(Nodo *);
+    int getDeterminante10(Nodo *);
+
 public:
     ListaEnlazada();
     Nodo *getInicioLista();
+    bool invalida();
     void Probando();
     void agregar(int, int);
     void imprimir(void);

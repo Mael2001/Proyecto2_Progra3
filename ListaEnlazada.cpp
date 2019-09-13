@@ -6,12 +6,39 @@ using namespace std;
 
 ListaEnlazada::ListaEnlazada() : iniciolista(nullptr) {}
 
+bool ListaEnlazada::invalida()
+{
+    Nodo *fila = iniciolista;
+    Nodo *columna = iniciolista;
+    for (size_t i = 0; i < filas; i++)
+    {
+        for (size_t i = 0; i < columnas; i++)
+        {
+            columna = columna->getSiguiente();
+            if (columna == nullptr)
+            {
+                return true;
+            }
+        }
+        fila = fila->getAbajo();
+        columna = fila;
+    }
+    return false;
+}
 void ListaEnlazada::Probando()
 {
-    Nodo *actual = iniciolista->getSiguiente();
-    for (size_t i = 0; i < getFilas(); i++)
+    Nodo *col = iniciolista;
+    Nodo *fil = iniciolista;
+    while (col != nullptr)
     {
-        cout << "[ " << actual->getValor() << " ]";
+        while (fil != nullptr)
+        {
+            cout << fil->getValor();
+            fil = fil->getAbajo();
+        }
+        cout << endl;
+        col = col->getSiguiente();
+        fil = col;
     }
 }
 int ListaEnlazada::getFilas()
@@ -109,27 +136,27 @@ void ListaEnlazada::Multiplicacion(ListaEnlazada primera, ListaEnlazada segunda)
     primera.columnas = 0;
     segunda.columnas = 0;
     segunda.filas = 0;
-    if (primera.getColumnas() != segunda.getFilas() || segunda.getColumnas() != primera.getFilas())
+    if (primera.getColumnas() != segunda.getFilas())
     {
         cout << "Elementos 1:" << primera.cantidadElementos() << "\nElementos 2:" << segunda.cantidadElementos() << endl;
         cout << "Operación No Valida Con Matrices" << std::endl;
         return;
     }
-    int Valor;
+    int Valor{0};
     Nodo *Lista1Fil = primera.getInicioLista();
     Nodo *Lista2Col = segunda.getInicioLista();
     Nodo *actual1 = primera.getInicioLista();
     Nodo *actual2 = segunda.getInicioLista();
-    for (size_t i = 0; i < primera.getFilas(); i++)
+    for (size_t i = 0; i < 2; i++)
     {
-        for (size_t j = 0; j < segunda.getColumnas(); j++)
+        Lista2Col = segunda.getInicioLista();
+        for (size_t j = 0; j < 2; j++)
         {
             while (actual1 != nullptr || actual2 != nullptr)
             {
 
                 int val1 = actual1->getValor();
                 int val2 = actual2->getValor();
-                cout << val2;
                 Valor += val1 * val2;
 
                 actual1 = actual1->getSiguiente();
@@ -138,12 +165,18 @@ void ListaEnlazada::Multiplicacion(ListaEnlazada primera, ListaEnlazada segunda)
             agregar(Valor, i);
             Valor = 0;
             Lista2Col = Lista2Col->getSiguiente();
-            cout << Lista2Col->getValor();
+            if (Lista2Col == nullptr)
+            {
+                break;
+            }
+
             actual1 = Lista1Fil;
             actual2 = Lista2Col;
         }
         Lista1Fil = Lista1Fil->getAbajo();
         Lista2Col = segunda.getInicioLista();
+        actual1 = Lista1Fil;
+        actual2 = Lista2Col;
     }
     imprimir();
 }
@@ -222,33 +255,14 @@ int ListaEnlazada::getDeterminante4(Nodo *recibir)
     Nodo *a42 = a41->getSiguiente();
     Nodo *a43 = a42->getSiguiente();
     Nodo *a44 = a43->getSiguiente();
-    Nodo *actual = a11;
 
-    cout << a11->getValor();
-    cout << a12->getValor();
-    cout << a13->getValor();
-    cout << a14->getValor() << std::endl;
-    cout << a21->getValor();
-    cout << a22->getValor();
-    cout << a23->getValor();
-    cout << a24->getValor() << std::endl;
-    cout << a31->getValor();
-    cout << a32->getValor();
-    cout << a33->getValor();
-    cout << a34->getValor() << std::endl;
-    cout << a41->getValor();
-    cout << a42->getValor();
-    cout << a43->getValor();
-    cout << a44->getValor() << std::endl;
     //Fila 1
-    //int valor1 = getDeterminante3(a22) * a11->getValor();
-    cout << "\n\n\n\n\n"
-         << getDeterminante3(a22);
+    int valor1 = getDeterminante3(a22) * a11->getValor();
     //Fila 2
     a12->setAbajo(a32);
     a13->setAbajo(a33);
     a14->setAbajo(a34);
-    // int valor2 = getDeterminante3(a12) * a21->getValor();
+    int valor2 = getDeterminante3(a12) * a21->getValor();
     //Fila 3
     a12->setAbajo(a22);
     a13->setAbajo(a23);
@@ -257,7 +271,7 @@ int ListaEnlazada::getDeterminante4(Nodo *recibir)
     a22->setAbajo(a42);
     a23->setAbajo(a43);
     a24->setAbajo(a44);
-    //int valor3 = getDeterminante3(a12) * a31->getValor();
+    int valor3 = getDeterminante3(a12) * a31->getValor();
     //Fila 4
     a12->setAbajo(a22);
     a13->setAbajo(a23);
@@ -270,9 +284,8 @@ int ListaEnlazada::getDeterminante4(Nodo *recibir)
     a32->setAbajo(nullptr);
     a33->setAbajo(nullptr);
     a34->setAbajo(nullptr);
-    //  int valor4 = getDeterminante3(a12) * a41->getValor();
-    //    return valor1 - valor2 + valor3 - valor4;
-    return 1;
+    int valor4 = getDeterminante3(a12) * a41->getValor();
+    return valor1 - valor2 + valor3 - valor4;
 }
 
 int ListaEnlazada::getDeterminante5(Nodo *recibir)
@@ -307,7 +320,55 @@ int ListaEnlazada::getDeterminante5(Nodo *recibir)
     Nodo *a53 = a52->getSiguiente();
     Nodo *a54 = a53->getSiguiente();
     Nodo *a55 = a54->getSiguiente();
+
+    //Fila 1
+    int valor1 = getDeterminante3(a22) * a11->getValor();
+    //Fila 2
+    a12->setAbajo(a32);
+    a13->setAbajo(a33);
+    a14->setAbajo(a34);
+    int valor2 = getDeterminante3(a12) * a21->getValor();
+    //Fila 3
+    a12->setAbajo(a22);
+    a13->setAbajo(a23);
+    a14->setAbajo(a24);
+    //------------
+    a22->setAbajo(a42);
+    a23->setAbajo(a43);
+    a24->setAbajo(a44);
+    int valor3 = getDeterminante3(a12) * a31->getValor();
+    //Fila 4
+    a12->setAbajo(a22);
+    a13->setAbajo(a23);
+    a14->setAbajo(a24);
+    //------------
+    a22->setAbajo(a32);
+    a23->setAbajo(a33);
+    a24->setAbajo(a34);
+    //------------
+    a32->setAbajo(nullptr);
+    a33->setAbajo(nullptr);
+    a34->setAbajo(nullptr);
+    int valor4 = getDeterminante3(a12) * a41->getValor();
+    //Fila 5
+    a12->setAbajo(a22);
+    a13->setAbajo(a23);
+    a14->setAbajo(a24);
+    //------------
+    a22->setAbajo(a32);
+    a23->setAbajo(a33);
+    a24->setAbajo(a34);
+    //------------
+    a32->setAbajo(nullptr);
+    a33->setAbajo(nullptr);
+    a34->setAbajo(nullptr);
+    return valor1 - valor2 + valor3 - valor4;
 }
+int ListaEnlazada::getDeterminante6(Nodo *as) {}
+int ListaEnlazada::getDeterminante7(Nodo *) {}
+int ListaEnlazada::getDeterminante8(Nodo *) {}
+int ListaEnlazada::getDeterminante9(Nodo *) {}
+int ListaEnlazada::getDeterminante10(Nodo *) {}
 void ListaEnlazada::imprimirDeterminante(int numero)
 {
     string NomArch;
@@ -322,6 +383,7 @@ void ListaEnlazada::imprimirDeterminante(int numero)
 }
 void ListaEnlazada::Determinante()
 {
+    int val{0};
     cantidadElementos();
     if (filas == columnas)
     {
@@ -331,23 +393,49 @@ void ListaEnlazada::Determinante()
             cout << "Determinante es: " << iniciolista->getValor() << std::endl;
             break;
         case 2:
-            cout << "Determinante es: " << getDeterminante2() << std::endl;
-            imprimirDeterminante(getDeterminante2());
+            val = getDeterminante2();
+            cout << "Determinante es: " << val << std::endl;
+            imprimirDeterminante(val);
             break;
         case 3:
-            cout << "Determinante es: " << getDeterminante3(nullptr) << std::endl;
-            imprimirDeterminante(getDeterminante3(0));
+            val = getDeterminante3(nullptr);
+            cout << "Determinante es: " << val << std::endl;
+            imprimirDeterminante(val);
             break;
         case 4:
-            cout << "Determinante es: " << getDeterminante4(nullptr) << std::endl;
-            imprimirDeterminante(getDeterminante4(0));
+            val = getDeterminante4(nullptr);
+            cout << "Determinante es: " << val << std::endl;
+            imprimirDeterminante(val);
             break;
         case 5:
-            cout << "Determinante es: " << getDeterminante4(nullptr) << std::endl;
-            imprimirDeterminante(getDeterminante5(0));
+            val = getDeterminante5(nullptr);
+            cout << "Determinante es: " << val << std::endl;
+            imprimirDeterminante(val);
             break;
-
-        default:
+        case 6:
+            val = getDeterminante6(nullptr);
+            cout << "Determinante es: " << val << std::endl;
+            imprimirDeterminante(val);
+            break;
+        case 7:
+            val = getDeterminante7(nullptr);
+            cout << "Determinante es: " << val << std::endl;
+            imprimirDeterminante(val);
+            break;
+        case 8:
+            val = getDeterminante8(nullptr);
+            cout << "Determinante es: " << val << std::endl;
+            imprimirDeterminante(val);
+            break;
+        case 9:
+            val = getDeterminante9(nullptr);
+            cout << "Determinante es: " << val << std::endl;
+            imprimirDeterminante(val);
+            break;
+        case 10:
+            val = getDeterminante10(nullptr);
+            cout << "Determinante es: " << val << std::endl;
+            imprimirDeterminante(val);
             break;
         }
     }
