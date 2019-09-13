@@ -34,11 +34,16 @@ void ListaEnlazada::CreadorLista()
                 while (line[pos] != ' ')
                 {
                     numero.append(string(1, line[pos]));
-                    if (line[pos + 1] == ' ')
+                    if (pos == line.length())
+                    {
+                        break;
+                    }
+                    else if (line[pos + 1] == ' ')
                     {
                         ia = atoi(numero.c_str());
                         cout << ia << " ";
                         numero = " ";
+                        agregar(ia, cantFila);
                     }
                     pos++;
                 }
@@ -360,47 +365,47 @@ int ListaEnlazada::getDeterminante5(Nodo *recibir)
     Nodo *a55 = a54->getSiguiente();
 
     //Fila 1
-    int valor1 = getDeterminante3(a22) * a11->getValor();
+    int valor1 = getDeterminante4(a22) * a11->getValor();
     //Fila 2
     a12->setAbajo(a32);
     a13->setAbajo(a33);
     a14->setAbajo(a34);
-    int valor2 = getDeterminante3(a12) * a21->getValor();
+    a15->setAbajo(a35);
+    int valor2 = getDeterminante4(a12) * a21->getValor();
     //Fila 3
     a12->setAbajo(a22);
     a13->setAbajo(a23);
     a14->setAbajo(a24);
+    a15->setAbajo(a25);
     //------------
     a22->setAbajo(a42);
     a23->setAbajo(a43);
     a24->setAbajo(a44);
-    int valor3 = getDeterminante3(a12) * a31->getValor();
+    a25->setAbajo(a45);
+    int valor3 = getDeterminante4(a12) * a31->getValor();
     //Fila 4
-    a12->setAbajo(a22);
-    a13->setAbajo(a23);
-    a14->setAbajo(a24);
-    //------------
     a22->setAbajo(a32);
     a23->setAbajo(a33);
     a24->setAbajo(a34);
+    a25->setAbajo(a35);
     //------------
-    a32->setAbajo(nullptr);
-    a33->setAbajo(nullptr);
-    a34->setAbajo(nullptr);
-    int valor4 = getDeterminante3(a12) * a41->getValor();
+    a32->setAbajo(a52);
+    a33->setAbajo(a53);
+    a34->setAbajo(a54);
+    a35->setAbajo(a55);
+    int valor4 = getDeterminante4(a12) * a41->getValor();
     //Fila 5
-    a12->setAbajo(a22);
-    a13->setAbajo(a23);
-    a14->setAbajo(a24);
+    a32->setAbajo(a42);
+    a33->setAbajo(a43);
+    a34->setAbajo(a44);
+    a35->setAbajo(a45);
     //------------
-    a22->setAbajo(a32);
-    a23->setAbajo(a33);
-    a24->setAbajo(a34);
-    //------------
-    a32->setAbajo(nullptr);
-    a33->setAbajo(nullptr);
-    a34->setAbajo(nullptr);
-    return valor1 - valor2 + valor3 - valor4;
+    a42->setAbajo(nullptr);
+    a43->setAbajo(nullptr);
+    a44->setAbajo(nullptr);
+    a45->setAbajo(nullptr);
+    int valor5 = getDeterminante4(a12) * a41->getValor();
+    return valor1 - valor2 + valor3 - valor4 + valor5;
 }
 int ListaEnlazada::getDeterminante6(Nodo *as) {}
 int ListaEnlazada::getDeterminante7(Nodo *) {}
@@ -551,7 +556,6 @@ void ListaEnlazada::imprimir()
     {
         for (size_t j = 0; j < columnas; j++)
         {
-            cout << "[" << columna->getValor() << "]" << std::endl;
             myfile << columna->getValor() << " ";
             columna = columna->getSiguiente();
         }
